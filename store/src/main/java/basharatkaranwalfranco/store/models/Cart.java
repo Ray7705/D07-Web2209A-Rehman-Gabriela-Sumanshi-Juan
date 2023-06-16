@@ -68,22 +68,20 @@ public class Cart {
         }
     }
 
-    public void EmptyCart() {
-        foreach(Product product in Products
-        )
-                product.Quantity = 0;
+    public void emptyCart() {
+        for (Product product : productsList) {
+            product.setQuantity(0);
 
-        Products.Clear();
-        productsDictionary.Clear();
+            productsList.clear();
+            productsHashmap.clear();
+        }
     }
 
-    public decimal Subtotal
-
+    public Double getSubtotal()
     {
-        get
-        {
-            return productsDictionary.Sum(x =  > x.Value.TotalPrice);
-        }
+
+        return productsDictionary.Sum(x =  > x.Value.TotalPrice);
+
     }
 
     public decimal TaxAmount
