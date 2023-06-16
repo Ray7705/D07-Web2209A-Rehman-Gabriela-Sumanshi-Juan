@@ -1,13 +1,102 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package basharatkaranwalfranco.store.models;
 
-/**
- *
- * @author isi
- */
 public class Product {
+
+    private Integer id;
+    private String category;
+    private String name;
+    private String description;
+
+    private Double price; 
+    private int quantity;
+
+    private int inventory; 
+    public String imageUrl;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getInventory() {
+        return inventory;
+    }
+
+    private void setInventory(int inventory) {
+        this.inventory = inventory;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+  
+    public Product(int id, String category, String name, String description, Double price, int quantity, int inventory, String imageUrl) {
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.imageUrl = imageUrl;
+        this.inventory = inventory;
+    }
+
+    public Product(int id, String category, String name, String description, Double price, int inventory, String imageUrl) {
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = 0;
+        this.imageUrl = imageUrl;
+        this.inventory = inventory;
+    }
     
+     public Double getTotalPrice() {
+        return price * quantity;
+    }
 }
