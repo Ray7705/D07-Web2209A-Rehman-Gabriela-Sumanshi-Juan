@@ -10,7 +10,7 @@ public class Cart {
     private final Double tax = 0.15;
 
     public ArrayList<Product> getProductList() {
-        return productList;
+        return productsList;
     }
 
     public Cart() {
@@ -22,7 +22,7 @@ public class Cart {
     public void addProductUnit(Product product) {
         if (productsHashmap.containsKey(product.getId())) {
             if (product.getQuantity() < product.getInventory()) {
-                product.setQuantity(product.getQuantity()++);
+                product.setQuantity(product.getQuantity()+1);
             }
         } else {
             if (product.getInventory() >= 1) {
@@ -38,7 +38,7 @@ public class Cart {
     //and also that the current amount in the cart is less than the total inventory
     public void addProductUnit(Product product) {
         if (productsHashmap.containsKey(product.getId())) {
-            product.setQuantity(product.getQuantity()++);
+            product.setQuantity(product.getQuantity() + 1);
         } else {
 
             product.setQuantity(1);
@@ -51,7 +51,7 @@ public class Cart {
     public void removeProductUnit(Product product) {
         if (productsHashmap.containsKey(product.getId())) {
             if (product.getQuantity() > 1) {
-                product.setQuantity(product.getQuantity()--);
+                product.setQuantity(product.getQuantity() - 1);
             } else {
                 product.setQuantity(0);
                 productsList.remove(product);
@@ -77,29 +77,21 @@ public class Cart {
         }
     }
 
-    public Double getSubtotal()
-    {
+    public Double getSubtotal() {
 
-        return productsDictionary.Sum(x =  > x.Value.TotalPrice);
+        return 0.0; //productsHashmap.compute(, remappingFunction)Sum(x =  > x.Value.TotalPrice);
 
     }
 
-    public decimal TaxAmount
+    public Double getTaxAmount() {
 
-    {
-        get
-        {
-            return Subtotal * Tax;
-        }
+        return getSubtotal() * tax;
+
     }
 
-    public decimal Total
+    public Double getTotal() {
 
-    {
-        get
-        {
-            return Subtotal + TaxAmount;
-        }
+        return getSubtotal() + getTaxAmount();
     }
-}
+
 }
