@@ -2,6 +2,7 @@ package basharatkaranwalfranco.store.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Cart {
 
@@ -9,42 +10,27 @@ public class Cart {
     private ArrayList<Product> productsList;
     private final Double tax = 0.15;
 
-    public ArrayList<Product> getProductList() {
-        return productsList;
-    }
-
     public Cart() {
         this.productsList = new ArrayList<>();
         this.productsHashmap = new HashMap<>();
     }
 
-    /*
+    public ArrayList<Product> getProductList() {
+        return productsList;
+    }
+
     public void addProductUnit(Product product) {
         if (productsHashmap.containsKey(product.getId())) {
             if (product.getQuantity() < product.getInventory()) {
-                product.setQuantity(product.getQuantity()+1);
+                product.setQuantity(product.getQuantity() + 1);
             }
         } else {
             if (product.getInventory() >= 1) {
+
                 product.setQuantity(1);
-                Products.Add(product);
-                productsDictionary.Add(product.Id, product);
+                productsList.add(product);
+                productsHashmap.put(product.getId(), product);
             }
-        }
-    }
-     */
-    //TODO: Add inventory validation in Controller
-    //Verify is there enough inventory to add a new item
-    //and also that the current amount in the cart is less than the total inventory
-    public void addProductUnit(Product product) {
-        if (productsHashmap.containsKey(product.getId())) {
-            product.setQuantity(product.getQuantity() + 1);
-        } else {
-
-            product.setQuantity(1);
-            productsList.add(product);
-            productsHashmap.put(product.getId(), product);
-
         }
     }
 
@@ -78,8 +64,13 @@ public class Cart {
     }
 
     public Double getSubtotal() {
+        
+        Double sum =0d;
+        for (Map.Entry<Integer, Product> entry : productsHashmap.entrySet()) {
+            sum += entry.getValue().getTotalPrice();
+        }
 
-        return 0.0; //productsHashmap.compute(, remappingFunction)Sum(x =  > x.Value.TotalPrice);
+        return sum; 
 
     }
 
