@@ -14,13 +14,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/products",""})
+@WebServlet(name = "ProductController", urlPatterns = {"/products", ""})
 public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //Obtaining cart and updating product quantities
+            //Saving category in session
             HttpSession session = request.getSession(true);
             String category = request.getParameter("category");
             session.setAttribute("category", category);
@@ -33,9 +33,8 @@ public class ProductController extends HttpServlet {
             } else {
                 products = repository.getProductsByCategory(category);
             }
-
-           
             
+            //Obtaining cart and updating product quantities
             Cart cartInSession = (Cart) session.getAttribute("cart");
             if (cartInSession != null) {
                 HashMap<Integer, Product> productsHashMap = cartInSession.getProductsHashMap();
@@ -46,15 +45,13 @@ public class ProductController extends HttpServlet {
                         products.set(counter++, product);
                     }
                 }
-                
                 request.setAttribute("cart", cartInSession);
-                
-                
             }
-            
-             request.setAttribute("products", products);
-             request.setAttribute("category", session.getAttribute("category"));
-             request.getRequestDispatcher("WEB-INF/productlist.jsp").forward(request, response);
+
+            //Sending parameters
+            request.setAttribute("products", products);
+            request.setAttribute("category", session.getAttribute("category"));
+            request.getRequestDispatcher("WEB-INF/productlist.jsp").forward(request, response);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -63,32 +60,57 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO -> Es necesario encerrar el boton de mas y de menos en una etiqueta form para que se vaya
-        //como post
-        //TODO-> Mandar parametro diff dependiendo si es increase o decrease product
 
         try {
+            //getting parameters
             String actionParam = request.getParameter("action");
             String productId = request.getParameter("productId");
             ProductRepository repository = new ProductRepository();
-            Product product = repository.getProductById(Integer.parseInt(productId));
-            
+            Product productById = repository.getProductById(Integer.parseInt(productId));
+
             //retrieving cart. If it doesnt exist it will be created.
             HttpSession session = request.getSession(true);
             Cart cartInSession = (Cart) session.getAttribute("cart");
             if (cartInSession == null) {
                 cartInSession = new Cart();
             }
+            
+            //defining action depending on the button selected
             if ("plus".equals(actionParam)) {
-                cartInSession.addProductUnit(product);
+                cartInSession.addProductUnit(productById);
 
             } else if ("minus".equals(actionParam)) {
-                cartInSession.removeProductUnit(product);
+                cartInSession.removeProductUnit(productById);
             }
-            
+
             //save updated cart into session
             session.setAttribute("cart", cartInSession);
+            String category = request.getParameter("category");
+            session.setAttribute("category", category);
+            ArrayList<Product> products;
+
+            //if category parameter does not come, show all products
+            if (category == null || "all".equals(category)) {
+                products = repository.getProducts();
+            } else {
+                products = repository.getProductsByCategory(category);
+            }
+
+            //Get product list from cart and updating product quantities
+            HashMap<Integer, Product> productsHashMap = cartInSession.getProductsHashMap();
+            int counter = 0;
+            for (Product product : products) {
+                if (productsHashMap.containsKey(product.getId())) {
+                    product.setQuantity(productsHashMap.get(product.getId()).getQuantity());
+                    products.set(counter++, product);
+                }
+            }
+
+            request.setAttribute("cart", cartInSession);
+            request.setAttribute("products", products);
+            request.setAttribute("category", session.getAttribute("category"));
             request.getRequestDispatcher("WEB-INF/productlist.jsp").forward(request, response);
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

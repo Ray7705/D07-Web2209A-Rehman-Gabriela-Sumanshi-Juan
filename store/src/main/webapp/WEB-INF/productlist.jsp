@@ -32,7 +32,13 @@
                 <%="<h1>"+product.getName()+"</h1>"%>
                 <%="<p class='price'>$ "+product.getPrice()+"</p>"%>
                 <%="<p>"+product.getDescription()+"</p>"%>
-                <%="<p><form method='post' action='?action=minus&productId="+product.getId()+"'><button type='submit'>-</button></form> "+product.getQuantity()+" <form method='post' action='?action=plus&productId="+product.getId()+"'><button type='submit'>+</button></form></p>"%>
+                <%="<p><form method='post' action='products'>"+
+                        "<input type='hidden' name='action' value='minus'><input type='hidden' name='productId' value='"+
+                        product.getId()
+                        +"'><button type='submit'>-</button></form>"
+        +product.getQuantity()+"<form method='post' action='products'>"+
+                        "<input type='hidden' name='action' value='plus'><input type='hidden' name='productId' value='"+
+                        product.getId()+"'><button type='submit'>+</button></form></p>"%>
             </div>
 
             <% } %>
