@@ -13,34 +13,29 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/products"})
+@WebServlet(name = "ProductController", urlPatterns = {"/products",""})
 public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            //Obtaining cart and updating product quantities
+            HttpSession session = request.getSession(true);
             String category = request.getParameter("category");
+            session.setAttribute("category", category);
             ArrayList<Product> products;
             ProductRepository repository = new ProductRepository();
 
-            //if category parameter comes retrieve products by category
-            if (category != null || !"all".equals(category)) {
-                products = repository.getProductsByCategory(category);
-            } else {
-                //else retrieve all prods
+            //if category parameter does not come, show all products
+            if (category == null || "all".equals(category)) {
                 products = repository.getProducts();
-
+            } else {
+                products = repository.getProductsByCategory(category);
             }
 
-            //TODO -> En el jsp colocar tabs con las distintas categorias. Son anchors y por lo tanto
-            //haran un trigger de un get nuevamente
-            //request.setAttribute("category", vehicles);
-            //request.getRequestDispatcher("WEB-INF/vehicles.jsp").forward(request, response);
-            //Obtaining cart and updating product quantities
-            HttpSession session = request.getSession(true);
+           
+            
             Cart cartInSession = (Cart) session.getAttribute("cart");
             if (cartInSession != null) {
                 HashMap<Integer, Product> productsHashMap = cartInSession.getProductsHashMap();
@@ -51,7 +46,15 @@ public class ProductController extends HttpServlet {
                         products.set(counter++, product);
                     }
                 }
+                
+                request.setAttribute("cart", cartInSession);
+                
+                
             }
+            
+             request.setAttribute("products", products);
+             request.setAttribute("category", session.getAttribute("category"));
+             request.getRequestDispatcher("WEB-INF/productlist.jsp").forward(request, response);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -85,6 +88,7 @@ public class ProductController extends HttpServlet {
             
             //save updated cart into session
             session.setAttribute("cart", cartInSession);
+            request.getRequestDispatcher("WEB-INF/productlist.jsp").forward(request, response);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

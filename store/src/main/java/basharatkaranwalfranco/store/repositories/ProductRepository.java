@@ -30,7 +30,7 @@ public class ProductRepository
             String query = "SELECT id, name, description, category, price, inventory, img FROM products WHERE category = ?";
             
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(4, category);
+            statement.setString(1, category);
             
             ResultSet resultSet = statement.executeQuery();
              ArrayList<Product> products = new ArrayList<>();
