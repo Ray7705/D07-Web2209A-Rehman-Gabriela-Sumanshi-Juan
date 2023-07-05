@@ -56,12 +56,13 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+    
+    //TODO -> Define if it's better to have it private or public
     public int getInventory() {
         return inventory;
     }
 
-    private void setInventory(int inventory) {
+    public void setInventory(int inventory) {
         this.inventory = inventory;
     }
 

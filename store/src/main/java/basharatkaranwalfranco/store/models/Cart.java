@@ -18,6 +18,10 @@ public class Cart {
     public ArrayList<Product> getProductList() {
         return productsList;
     }
+    
+    public HashMap<Integer, Product> getProductsHashMap(){
+        return productsHashmap;
+    }
 
     public void addProductUnit(Product product) {
         if (productsHashmap.containsKey(product.getId())) {

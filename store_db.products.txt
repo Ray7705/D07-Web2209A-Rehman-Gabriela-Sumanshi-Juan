@@ -1,0 +1,25 @@
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `category` varchar(100) NOT NULL,
+  `price` double NOT NULL,
+  `inventory` int(11) NOT NULL,
+  `img` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+INSERT INTO store_db.products
+(name, description, category, price, inventory, img)
+VALUES('Peach', 'Fresh yellow peach', 'fruit', 1.98, 20, 'https://i5.walmartimages.com/asr/f387846e-47eb-470f-a8e6-bcada0848532.64a94b8c68019d577dede8f236d97aa3.jpeg'),
+('Tomato', 'Slicing tomato, 3 pack', 'vegetable', 1.5, 10, 'https://i5.walmartimages.com/asr/66a57190-3844-4a00-8135-3466bbfce8b0.d49d3461c8a0b731cc67c52cceea0bb9.jpeg'),
+('Clementine','Fresh clementine. 3lb bag', 'fruit', 3.98, 5, 'https://i5.walmartimages.com/asr/76fc8820-6b8b-43e2-a1b9-baabe45c010b.69573f87213c0fe001776661f8faa07b.jpeg'),
+('Cherries', 'Fresh Red Cherries, 2.25 lb Bag', 'fruit', 4.46, 5, 'https://i5.walmartimages.com/asr/ae909d05-c36d-42f7-bcfe-bcf43201fc73.477cac022ebe2e0acad63c17124ca733.png'),
+('Corn', 'Fresh Sweet Corn on the Cob (1 each)', 'vegetable', 0.5, 30, 'https://i5.walmartimages.com/asr/c78d8a57-c0e8-43a4-98b1-777826530117_1.797a40ee7523a8add2629830dc41914f.jpeg'),
+('Cucumber', 'Fresh Cucumber, Each', 'vegetable', 0.68, 15, 'https://i5.walmartimages.com/asr/5985ccc8-109e-411d-aca7-556ab217e1da.e3770028b0d00b3fa4e6a40c4e630ef9.jpeg'),
+('Watermelon', 'Fresh Personal Watermelon, Each', 'fruit', 3.87, 23, 'https://i5.walmartimages.com/asr/d3ac703a-9c91-451a-8218-f522602003d7.fc560b0a40424cda1152890f8f927344.jpeg'),
+('Angus beef burguer x6', 'Sam Choice 100% Angus Beef Burgers, 6 Count, 2lb (Frozen)', 'meat', 5.42, 8, 'https://i5.walmartimages.com/asr/925e3b92-6ef1-4d36-8898-330b62e6fc4a.dd93ed19eb6c41189eeca81eba3ae638.jpeg'),
+('Shrimp', 'Great Value Frozen Cooked Small Peeled & Deveined, Tail-off Shrimp, 12 oz (71-90 Count per lb)', 'meat', 5.42, 5, 'https://i5.walmartimages.com/asr/d2428ca5-29d6-4da5-bfc0-ba77f74f0ce1.08f26955531efe0a13dafed7c7d1f760.jpeg')
+
+;
