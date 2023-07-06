@@ -27,7 +27,7 @@ public class ProductRepository
         Class.forName("org.mariadb.jdbc.Driver");
         try (Connection connection = DriverManager.getConnection(connectionUrl, username, password))
         {
-            String query = "SELECT id, name, description, category, price, inventory, img FROM products WHERE category = ?";
+            String query = "SELECT id, name, description, category, price, inventory, img FROM products WHERE category = ? ORDER BY name";
             
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, category);
@@ -63,7 +63,7 @@ public class ProductRepository
         Class.forName("org.mariadb.jdbc.Driver");
         try (Connection connection = DriverManager.getConnection(connectionUrl, username, password))
         {
-            String query = "SELECT id, name, description, category, price, inventory, img FROM products";
+            String query = "SELECT id, name, description, category, price, inventory, img FROM products ORDER BY name";
             
             PreparedStatement statement = connection.prepareStatement(query);
             

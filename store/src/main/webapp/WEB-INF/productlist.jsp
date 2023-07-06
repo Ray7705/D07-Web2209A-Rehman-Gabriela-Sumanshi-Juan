@@ -3,7 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%
     ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
-    String selected = (String) request.getAttribute("category");
+    String category = (String) request.getAttribute("category");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,10 +15,10 @@
     </head>
     <body>
         <div class="topnav" id="topnav">
-            <a id="btn all" class="active" href="?category=all">All Products</a>
-            <a id="btn f" href="?category=f">Fruits</a>
-            <a id="btn v" href="?category=v">Vegetables</a>
-            <a id="btn m" href="?category=m">Meat</a>
+            <a id="btn all" <%="all".equals(category) ? "class=\"active\"" : ""%> href="?category=all">All Products</a>
+            <a id="btn f" <%="f".equals(category) ? "class=\"active\"" : ""%> href="?category=f">Fruits</a>
+            <a id="btn v" <%="v".equals(category) ? "class=\"active\"" : ""%> href="?category=v">Vegetables</a>
+            <a id="btn m" <%="m".equals(category) ? "class=\"active\"" : ""%> href="?category=m">Meat</a>
         </div>
         <div class="card-container">
 
@@ -58,7 +58,7 @@
 // Loop through the buttons and add the active class to the current/clicked button
                 for (var i = 0; i < btns.length; i++) {
                     btns[i].addEventListener("click", function () {
-                        var select = <%= selected %>;
+                        var select = <%= category %>;
                         var current = document.getElementById(select);
                         current.className = current.className.replace(" active", "");
                         this.className += " active";

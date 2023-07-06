@@ -2,18 +2,18 @@ package basharatkaranwalfranco.store.models;
 
 public class Product {
 
-    private Integer id;
+    private int id;
     private String category;
     private String name;
     private String description;
 
-    private Double price; 
+    private double price; 
     private int quantity;
 
-    private int inventory; 
+    private int inventory;
     public String imageUrl;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Product {
         this.description = description;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -97,7 +97,7 @@ public class Product {
         this.inventory = inventory;
     }
     
-     public Double getTotalPrice() {
+     public double getTotalPrice() {
         return price * quantity;
     }
 }
