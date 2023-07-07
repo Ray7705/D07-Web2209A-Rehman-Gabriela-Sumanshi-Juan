@@ -21,7 +21,7 @@
             <a id="btn m" <%="m".equals(category) ? "class=\"active\"" : ""%> href="?category=m">Meat</a>
         </div>
         <div class="card-container">
-
+            
             <% if (products != null && products.size()>0) { %>
 
             <% for (Product product : products) { %>

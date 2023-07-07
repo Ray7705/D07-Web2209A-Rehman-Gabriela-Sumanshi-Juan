@@ -7,12 +7,16 @@ public class User {
    private String lastName;
    private String username;
    private String passwordHash; //convert to a differentType
+   private String emailId;
+   
 
-    public User(String firstName, String lastName, String username, String passwordHash) {
+    public User(String firstName, String lastName, String username, String passwordHash, String emailId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.passwordHash = passwordHash;
+        this.emailId = emailId;
+        
     }
 
     public int getId() {
@@ -47,5 +51,14 @@ public class User {
         this.passwordHash = passwordHash;
     }
    
+    
+    public String getEmailID()
+    {
+        return emailId;
+    }
    
+    public void setEmailId(String emailId)
+    {
+        this.emailId = emailId;
+    }
 }
